@@ -1,6 +1,7 @@
 #include "replication_manager.hpp"
 #include "class_registry.hpp"
 #include "utils.hpp"
+#include <iostream>
 
 void ReplicationManager::Replicate(OutputStream& stream, std::vector<GameObject*> objects)
 {
@@ -63,5 +64,19 @@ void ReplicationManager::Replicate(InputStream& stream)
 		}
 	}
 
+	DisplayWorld();
 	return;
+}
+
+
+void ReplicationManager::DisplayWorld()
+{
+	std::cout << "==========================================================================" << std::endl;
+	std::cout << "Display world" << std::endl;
+	std::cout << "==========================================================================" << std::endl;
+	for (auto object : world)
+	{
+		std::cout << object->mClassID << " : " << linkingContext.GetId(object).value() << std::endl;
+	}
+	std::cout << "==========================================================================" << std::endl;
 }

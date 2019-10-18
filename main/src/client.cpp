@@ -14,7 +14,7 @@ Client::Client(std::string ip, int port)
 		});
 
 	tcp->on<uvw::DataEvent>([](const uvw::DataEvent& evt, uvw::TCPHandle&) {
-		std::cout << evt.data << std::endl;
+		std::cout << evt.data.get() << std::endl;
 		});
 
 	tcp->connect(std::string{ ip }, port);

@@ -10,7 +10,6 @@ Server::Server(std::string ip, int port)
 		
 		client->on<uvw::CloseEvent>([ptr = srv.shared_from_this()](const uvw::CloseEvent&, uvw::TCPHandle&) { ptr->close(); });
 		client->on<uvw::EndEvent>([](const uvw::EndEvent&, uvw::TCPHandle& client) { client.close(); });
-	 	client->on<uvw::DataEvent>([this](const uvw::DataEvent& event, uvw::TCPHandle&) { Send(reinterpret_cast<uint8_t*>(event.data.get()), event.length); });
 		
 		srv.accept(*client);
 		client->read();

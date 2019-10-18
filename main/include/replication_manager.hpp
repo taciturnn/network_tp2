@@ -12,6 +12,8 @@ public:
 	void Replicate(OutputStream& stream, std::vector<GameObject*> objects);
 	void Replicate(InputStream& stream);
 
+	void DisplayWorld();
+
 	enum class PacketType
 	{
 		Hello = 0x00,
