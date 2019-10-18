@@ -12,6 +12,14 @@ void LinkingContext::Add(GameObject* newGO)
 	return;
 }
 
+void LinkingContext::Add(GameObject* newGO, NetworkId newId)
+{
+	idToObj.insert({ newId, newGO });
+	objToId.insert({ newGO, newId });
+	return;
+}
+
+
 
 void LinkingContext::Remove(GameObject* gameObject)
 {
