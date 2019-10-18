@@ -7,7 +7,7 @@
 class ReplicationManager
 {
 public:
-	void Replicate(MemoryStream stream, std::vector<GameObject*> objects);
+	void Replicate(OutputStream& stream, std::vector<GameObject*> objects);
 	void Replicate(MemoryStream stream);
 
 private:
