@@ -1,6 +1,7 @@
 #pragma once
 
 #include "game_object.hpp"
+#include "linking_context.hpp"
 #include <unordered_set>
 #include <vector>
 
@@ -9,7 +10,7 @@ class ReplicationManager
 {
 public:
 	void Replicate(OutputStream& stream, std::vector<GameObject*> objects);
-	void Replicate(MemoryStream stream);
+	void Replicate(InputStream& stream);
 
 	enum class PacketType
 	{
@@ -21,4 +22,5 @@ public:
 private:
 	static const uint32_t protocolID = 0xc0ffee;
 	std::unordered_set<GameObject*> world;
+	LinkingContext linkingContext;
 };
