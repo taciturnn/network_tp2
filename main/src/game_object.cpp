@@ -2,6 +2,6 @@
 
 void GameObject::Destroy() {}
 
-void GameObject::Write(const OutputStream& stream) {}
+void GameObject::Write(OutputStream& stream) {}
 
-void GameObject::Read(const InputStream& stream) {}
+void GameObject::Read(InputStream& stream) {}

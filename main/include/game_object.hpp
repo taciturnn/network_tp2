@@ -18,6 +18,6 @@ public:
 	GameObject() = default;
 	virtual ~GameObject() = default;
 	virtual void Destroy();
-	virtual void Write(const OutputStream& stream);
-	virtual void Read(const InputStream& stream);
+	virtual void Write(OutputStream& stream);
+	virtual void Read(InputStream& stream);
 };

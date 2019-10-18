@@ -10,12 +10,11 @@ class LinkingContext
 {
 public:
 	void Add(GameObject*);
+	void Add(GameObject*, NetworkId);
 	void Remove(GameObject*);
 
 	std::optional<NetworkId> GetId(GameObject*);
 	std::optional<GameObject *> GetGameObject(NetworkId);
-
-	//Ajoutez une méthode permettant d’ajouter un pointeur sur un GameObject et un NetworkID au contexte
 
 private:
 	std::map<NetworkId, GameObject*> idToObj;
