@@ -6,6 +6,7 @@
 class Player : GameObject
 {
 public:
+	REPLICATED('PLAY', Player)
 	void Write(const OutputStream& stream) override;
 	void Read(const InputStream& stream) override;
 	void Destroy() override;
