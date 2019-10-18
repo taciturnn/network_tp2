@@ -10,6 +10,7 @@ Server::Server(std::string ip, int port)
 		
 		client->on<uvw::CloseEvent>([ptr = srv.shared_from_this()](const uvw::CloseEvent&, uvw::TCPHandle&) { ptr->close(); });
 		client->on<uvw::EndEvent>([](const uvw::EndEvent&, uvw::TCPHandle& client) { client.close(); });
+	 	client->on<uvw::DataEvent>([this](const uvw::DataEvent& event, uvw::TCPHandle&) { Send(reinterpret_cast<uint8_t*>(event.data.get()), event.length); });
 		
 		srv.accept(*client);
 		client->read();
@@ -37,5 +38,9 @@ bool Server::isAlive()
 
 void Server::Send(uint8_t* packet, size_t size) 
 {
-	return;
+	for (auto client : clients)
+	{
+		auto dataWrite = std::unique_ptr<char[]>(reinterpret_cast<char*>(packet));
+		client->write(std::move(dataWrite), size);
+	}
 }
