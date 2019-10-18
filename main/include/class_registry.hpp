@@ -9,8 +9,7 @@ using ClassID = uint32_t;
 class ClassRegistry
 {
 public:
-	ClassRegistry* GetInstance();
-	~ClassRegistry() = default;
+	static ClassRegistry* GetInstance();
 
 	template<class T>
 	void Register(T objectClass)
@@ -22,9 +21,7 @@ public:
 
 private:
 	ClassRegistry() = default;
+	~ClassRegistry() = default;
 
 	std::map<ClassID, std::function<GameObject*()>> classIdToFunction;
-
-	ClassRegistry* instance;
-
 };

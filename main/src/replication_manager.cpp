@@ -1,16 +1,13 @@
 #include "replication_manager.hpp"
 #include "linking_context.hpp"
-
+#include "utils.hpp"
 
 void ReplicationManager::Replicate(OutputStream& stream, std::vector<GameObject*> objects)
 {
-	/*
 	stream.Write(ReplicationManager::protocolID);
 
-	auto type = to_intergral(PacketType::Sync);
+	auto type = to_integral<PacketType>(PacketType::Sync);
 	stream.Write(type);
-	*/
-
 
 	for (auto gameObject : objects)
 	{
