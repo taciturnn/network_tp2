@@ -8,8 +8,9 @@ class ReplicationManager
 {
 public:
 	void Replicate(OutputStream& stream, std::vector<GameObject*> objects);
-	void Replicate(MemoryStream stream);
+	void Replicate(InputStream& stream);
 
 private:
 	std::unordered_set<GameObject*> world;
+	LinkingContext linkingContext;
 };

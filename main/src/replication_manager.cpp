@@ -1,5 +1,6 @@
 #include "replication_manager.hpp"
 #include "linking_context.hpp"
+#include "class_registry.hpp"
 
 
 void ReplicationManager::Replicate(OutputStream& stream, std::vector<GameObject*> objects)
@@ -11,10 +12,9 @@ void ReplicationManager::Replicate(OutputStream& stream, std::vector<GameObject*
 	stream.Write(type);
 	*/
 
-
 	for (auto gameObject : objects)
 	{
-		auto objectID = LinkingContext::GetId(gameObject);
+		auto objectID = linkingContext.GetId(gameObject);
 		if (!objectID)
 		{
 			continue;
@@ -29,8 +29,34 @@ void ReplicationManager::Replicate(OutputStream& stream, std::vector<GameObject*
 	return;
 }
 
-void ReplicationManager::Replicate(MemoryStream stream)
+void ReplicationManager::Replicate(InputStream& stream)
 {
+	//TODO : read protocol and object ID
+
+	std::unordered_set<GameObject*> realWorld;
+
+
+	while (stream.Size() > 0)
+	{
+		NetworkId nId = stream.Read<NetworkId>();
+		ClassID cId = stream.Read<ClassID>();
+		auto gameObject = linkingContext.GetGameObject(nId);
+		if (!gameObject)
+		{
+			ClassRegistry::GetInstance()->Create(cId);
+		} 
+
+		gameObject->Read(stream);
+		realWorld.insert(gameObject);
+	}
+
+	for (auto gameObject : world)
+	{
+		if (realWorld.find(gameObject) == realWorld.end())
+		{
+			world.erase(gameObject);
+		}
+	}
 
 	return;
 }
