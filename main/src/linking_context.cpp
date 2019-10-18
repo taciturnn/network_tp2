@@ -11,7 +11,7 @@ NetworkId LinkingContext::Add(GameObject* newGO)
 		objToId.insert({ newGO, newId });
 		return newId;
 	}
-	else return objToId[iteratorGO];
+	else return objToId[newGO];
 	
 }
 
