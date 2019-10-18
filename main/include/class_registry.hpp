@@ -10,17 +10,20 @@ class ClassRegistry
 {
 public:
 	ClassRegistry* GetInstance();
-	~ClassRegistry();
-
+	~ClassRegistry() = default;
 
 	template<class T>
-	void Register(T objectClass);
+	void Register(T objectClass)
+	{
+		classIdToFunction.insert(std::make_pair(T.ClassID(), T.CreateInstance));
+	}
 
 	GameObject* Create(ClassID id);
 
 private:
-	ClassRegistry();
-	std::map<ClassID, std::function<void()>> classIdToFunction;
+	ClassRegistry() = default;
+
+	std::map<ClassID, std::function<GameObject*()>> classIdToFunction;
 
 	ClassRegistry* instance;
 
