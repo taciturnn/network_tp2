@@ -9,7 +9,7 @@ using NetworkId = uint32_t;
 class LinkingContext
 {
 public:
-	void Add(GameObject*);
+	NetworkId Add(GameObject*);
 	void Add(GameObject*, NetworkId);
 	void Remove(GameObject*);
 
