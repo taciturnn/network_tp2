@@ -5,9 +5,10 @@
 class Ennemy : GameObject
 {
 public:
+	REPLICATED('ENMY', Ennemy)
 
-	void Write(const OutputStream& stream) override;
-	void Read(const InputStream& stream) override;
+	void Write(OutputStream& stream) override;
+	void Read(InputStream& stream) override;
 	void Destroy() override;
 
 private:
