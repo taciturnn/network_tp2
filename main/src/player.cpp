@@ -2,13 +2,13 @@
 #include "streams.hpp"
 
 
-void Player::Write(const OutputStream& stream)
+void Player::Write(OutputStream& stream)
 {
 	return;
 };
 
 
-void Player::Read(const InputStream& stream)
+void Player::Read(InputStream& stream)
 {
 	return;
 };
