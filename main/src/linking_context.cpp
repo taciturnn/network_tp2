@@ -1,21 +1,27 @@
 #include "linking_context.hpp"
 
 
-void LinkingContext::Add(GameObject* newGO)
+NetworkId LinkingContext::Add(GameObject* newGO)
 {
-	if (objToId.find(newGO) == objToId.end())
+	auto iteratorGO = objToId.find(newGO);
+	if (iteratorGO == objToId.end())
 	{
-		NetworkId newId = idToObj.rbegin->first + 1;
+		NetworkId newId = (idToObj.rbegin->first) + 1; //get highest key + 1
 		idToObj.insert({ newId, newGO });
 		objToId.insert({ newGO, newId });
+		return newId;
 	}
-	return;
+	else return objToId[iteratorGO];
+	
 }
 
 void LinkingContext::Add(GameObject* newGO, NetworkId newId)
 {
-	idToObj.insert({ newId, newGO });
-	objToId.insert({ newGO, newId });
+	if (idToObj.find(newId) != idToObj.end())
+	{
+		idToObj.insert({ newId, newGO });
+		objToId.insert({ newGO, newId });
+	}
 	return;
 }
 
