@@ -1,6 +1,6 @@
 #include "player.hpp"
 #include "streams.hpp"
-
+#include <math.h>
 
 void Player::SetName(std::string name)
 {

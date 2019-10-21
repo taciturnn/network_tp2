@@ -1,5 +1,6 @@
 #include "ennemy.hpp"
 #include "streams.hpp"
+#include <math.h>
 
 void Ennemy::SetType(std::string name)
 {
