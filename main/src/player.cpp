@@ -2,6 +2,27 @@
 #include "streams.hpp"
 
 
+void Player::SetName(std::string name)
+{
+	this->name = name;
+}
+
+void Player::SetPosition(float x, float y, float z)
+{
+	position_x = x;
+	position_y = y;
+	position_z = z;
+}
+
+void Player::SetRotation(float a, float b, float c, float d)
+{
+	quaternion_a = a;
+	quaternion_b = b;
+	quaternion_c = c;
+	quaternion_d = d;
+}
+
+
 void Player::Write(OutputStream& stream)
 {
 

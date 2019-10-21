@@ -1,6 +1,26 @@
 #include "ennemy.hpp"
 #include "streams.hpp"
 
+void Ennemy::SetType(std::string name)
+{
+	this->type= name;
+}
+
+void Ennemy::SetPosition(float x, float y, float z)
+{
+	position_x = x;
+	position_y = y;
+	position_z = z;
+}
+
+void Ennemy::SetRotation(float a, float b, float c, float d)
+{
+	quaternion_a = a;
+	quaternion_b = b;
+	quaternion_c = c;
+	quaternion_d = d;
+}
+
 void Ennemy::Write(OutputStream& stream)
 {
 

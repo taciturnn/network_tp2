@@ -27,6 +27,7 @@ void ReplicationManager::Replicate(OutputStream& stream, std::vector<GameObject*
 	return;
 }
 
+
 void ReplicationManager::Replicate(InputStream& stream)
 {
 	if (stream.Read<uint32_t>() != ReplicationManager::protocolID || stream.Read<PacketType>() != PacketType::Sync)
@@ -64,7 +65,6 @@ void ReplicationManager::Replicate(InputStream& stream)
 		}
 	}
 
-	DisplayWorld();
 	return;
 }
 

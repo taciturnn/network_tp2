@@ -9,6 +9,8 @@
 class ReplicationManager
 {
 public:
+	std::unordered_set<GameObject*> world;
+
 	void Replicate(OutputStream& stream, std::vector<GameObject*> objects);
 	void Replicate(InputStream& stream);
 
@@ -23,6 +25,5 @@ public:
 
 private:
 	static const uint32_t protocolID = 0xc0ffee;
-	std::unordered_set<GameObject*> world;
 	LinkingContext linkingContext;
 };

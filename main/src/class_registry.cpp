@@ -1,5 +1,7 @@
 #include "class_registry.hpp"
 #include "streams.hpp"
+#include "player.hpp"
+#include "ennemy.hpp"
 
 ClassRegistry* ClassRegistry::GetInstance()
 {

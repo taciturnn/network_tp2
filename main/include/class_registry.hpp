@@ -12,9 +12,9 @@ public:
 	static ClassRegistry* GetInstance();
 
 	template<class T>
-	void Register(T objectClass)
+	void Register(T classObject)
 	{
-		classIdToFunction.insert(std::make_pair(T.ClassID(), T.CreateInstance));
+		classIdToFunction.insert(std::make_pair(classObject.ClassID(), classObject.CreateInstance));
 	}
 
 	GameObject* Create(ClassID id);

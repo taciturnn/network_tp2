@@ -11,15 +11,19 @@ public:
 	void Read(InputStream& stream) override;
 	void Destroy() override;
 
+	void SetName(std::string name);
+	void SetPosition(float x, float y, float z);
+	void SetRotation(float a, float b, float c, float d);
+		
 private:
-	float position_x;
-	float position_y;
-	float position_z;
+	float position_x = 0.f;
+	float position_y = 0.f;
+	float position_z = 0.f;
 
-	float quaternion_a;
-	float quaternion_b;
-	float quaternion_c;
-	float quaternion_d;
+	float quaternion_a =  0.f;
+	float quaternion_b =  0.f;
+	float quaternion_c =  0.f;
+	float quaternion_d =  0.f;
 
-	std::string name;
+	std::string name = "DefaultName";
 };
