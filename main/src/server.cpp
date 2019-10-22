@@ -52,13 +52,6 @@ Server::Server(std::string ip, int port, uvw::Loop& srvLoop)
 
 Server::~Server()
 {
-	srvLoop->stop();
-	srvLoop->close();
-}
-
-bool Server::isAlive()
-{
-	return srvLoop->alive();
 }
 
 void Server::SendWorld()

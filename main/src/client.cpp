@@ -32,13 +32,6 @@ Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
 	tcp->connect(ip, port);
 }
 
-bool Client::isAlive()
-{
-	return clientLoop->alive();
-}
-
 Client::~Client()
 {
-	clientLoop->stop();
-	clientLoop->close();
 }

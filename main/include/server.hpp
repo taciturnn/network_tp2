@@ -20,6 +20,5 @@ public:
 
 private:
 	ReplicationManager master;
-	std::shared_ptr<uvw::Loop> srvLoop;
 	std::vector<std::shared_ptr<uvw::TCPHandle>> clients;
 };
