@@ -5,7 +5,7 @@ NetworkId LinkingContext::Add(GameObject* newGO)
 	auto iteratorGO = objToId.find(newGO);
 	if (iteratorGO == objToId.end())
 	{
-		NetworkId newId = (idToObj.rbegin()->first) + 1; //get highest key + 1
+		NetworkId newId = idToObj.empty() ? 0 : (idToObj.rbegin()->first) + 1; //get highest key + 1
 		idToObj.insert({ newId, newGO });
 		objToId.insert({ newGO, newId });
 		return newId;
