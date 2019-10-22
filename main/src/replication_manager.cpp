@@ -15,11 +15,13 @@ void ReplicationManager::Replicate(OutputStream& stream, std::vector<GameObject*
 		auto objectID = linkingContext.GetId(gameObject);
 		if (!objectID)
 		{
+			std::cout << "Error: object not found in linking context" << std::endl;
 			continue;
 		}
 		stream.Write(*objectID);
 
 		auto classID = gameObject->ClassID();
+		
 		stream.Write(classID);
 
 		gameObject->Write(stream);
@@ -68,6 +70,24 @@ void ReplicationManager::Replicate(InputStream& stream)
 	return;
 }
 
+
+void ReplicationManager::Add(GameObject* gobj)
+{
+	linkingContext.Add(gobj);
+	world.insert(gobj);
+}
+
+
+void ReplicationManager::Remove(GameObject* gobj)
+{
+	linkingContext.Remove(gobj);
+	world.erase(gobj);
+}
+
+std::vector<GameObject*> ReplicationManager::GetWorld() const
+{
+	return std::vector<GameObject*>(world.begin(), world.end());
+}
 
 void ReplicationManager::DisplayWorld()
 {

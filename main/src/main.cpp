@@ -25,6 +25,7 @@ int main(int argc, char* argv[])
 		{
 			Client server = Client(ip, port, *loop);
 			loop->run();
+			while(loop->alive()) {}
 		}
 		else
 		{
