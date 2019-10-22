@@ -40,7 +40,7 @@ void ReplicationManager::Replicate(InputStream& stream)
 
 	std::unordered_set<GameObject*> realWorld;
 
-	while (stream.Size() > 0)
+	while (stream.RemainingSize() > 0)
 	{
 		NetworkId nId = stream.Read<NetworkId>();
 		ClassID cId = stream.Read<ClassID>();
@@ -49,6 +49,7 @@ void ReplicationManager::Replicate(InputStream& stream)
 		if (!gameObject)
 		{
 			go = ClassRegistry::GetInstance()->Create(cId);
+			linkingContext.Add(go, nId);
 		}
 		else
 		{
@@ -63,9 +64,11 @@ void ReplicationManager::Replicate(InputStream& stream)
 	{
 		if (realWorld.find(gameObject) == realWorld.end())
 		{
-			world.erase(gameObject);
+			linkingContext.Remove(gameObject);
 		}
 	}
+
+	world = realWorld;
 
 	return;
 }
@@ -96,7 +99,7 @@ void ReplicationManager::DisplayWorld()
 	std::cout << "==========================================================================" << std::endl;
 	for (auto object : world)
 	{
-		std::cout << object->mClassID << " : " << linkingContext.GetId(object).value() << std::endl;
+		std::cout << object->ClassID() << " : " << linkingContext.GetId(object).value() << std::endl;
 	}
 	std::cout << "==========================================================================" << std::endl;
 }

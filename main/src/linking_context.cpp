@@ -16,7 +16,7 @@ NetworkId LinkingContext::Add(GameObject* newGO)
 
 void LinkingContext::Add(GameObject* newGO, NetworkId newId)
 {
-	if (idToObj.find(newId) != idToObj.end())
+	if (idToObj.find(newId) == idToObj.end())
 	{
 		idToObj.insert({ newId, newGO });
 		objToId.insert({ newGO, newId });
