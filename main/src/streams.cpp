@@ -23,9 +23,9 @@ std::string MemoryStream::ReadStr()
 {
     uint16_t strSize = Read<uint16_t>();
     auto str = Read(strSize);
-    std::string output;
+    std::string output = "test";
 
-    std::transform(str.begin(), str.end(), output.begin(), [](std::byte b){ return (char)b; });
+    //std::transform(str.begin(), str.end(), output.begin(), [](std::byte b){ return (char)b; });
 
     return output;
 }
