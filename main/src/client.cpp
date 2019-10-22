@@ -20,6 +20,7 @@ Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
 	tcp->on<uvw::ConnectEvent>([ip, port](const uvw::ConnectEvent&, uvw::TCPHandle& tcp) {
 		// Debug
 		std::cout << "Client is connected to " << ip << ":" << std::to_string(port) << std::endl;
+		tcp.close();
 		});
 
 	tcp->on<uvw::DataEvent>([this](const uvw::DataEvent& evt, uvw::TCPHandle&) {
@@ -30,15 +31,4 @@ Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
 		});
 
 	tcp->connect(ip, port);
-}
-
-bool Client::isAlive()
-{
-	return clientLoop->alive();
-}
-
-Client::~Client()
-{
-	clientLoop->stop();
-	clientLoop->close();
 }

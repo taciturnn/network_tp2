@@ -8,18 +8,22 @@
 #include <string>
 #include "replication_manager.hpp"
 
+#include "player.hpp"
+#include "ennemy.hpp"
+
 class Server
 {
 public:
 	Server(std::string ip, int port, uvw::Loop& loop);
-	~Server();
+	~Server() = default;
 
 	void SendWorld();
 	void Send(uint8_t* packet, size_t size);
-	bool isAlive();
 
 private:
+	std::vector<std::unique_ptr<Player>> myPlayers;
+	std::vector< std::unique_ptr<Ennemy>> myEnnemies;
+
 	ReplicationManager master;
-	std::shared_ptr<uvw::Loop> srvLoop;
 	std::vector<std::shared_ptr<uvw::TCPHandle>> clients;
 };
