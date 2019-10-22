@@ -12,7 +12,7 @@ void MemoryStream::WriteStr(const std::string& data)
     assert(data.length() < 0xffff);
 
     uint16_t strSize = static_cast<uint16_t>(data.size());
-    Write<unsigned short>(strSize);
+    Write<uint16_t>(strSize);
 
     m_buffer.insert(std::end(m_buffer), 
                 reinterpret_cast<const std::byte*>(data.data()), 

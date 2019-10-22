@@ -15,7 +15,7 @@ Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
 
 	auto tcp = clientLoop.resource<uvw::TCPHandle>();
 
-	tcp->on<uvw::ErrorEvent>([](const uvw::ErrorEvent&, uvw::TCPHandle&) { /* handle errors */ });
+	tcp->on<uvw::ErrorEvent>([](const uvw::ErrorEvent& e, uvw::TCPHandle&) { std::cout << e.name() << ": " << e.what() << std::endl; });
 
 	tcp->on<uvw::ConnectEvent>([ip, port](const uvw::ConnectEvent&, uvw::TCPHandle& tcp) {
 		// Debug
@@ -29,7 +29,7 @@ Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
 		slave.DisplayWorld();
 		});
 
-	tcp->connect(std::string{ ip }, port);
+	tcp->connect(ip, port);
 }
 
 bool Client::isAlive()
