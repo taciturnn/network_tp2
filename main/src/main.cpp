@@ -26,10 +26,6 @@ int main(int argc, char* argv[])
 			Client client = Client(ip, port, *loop);
 			loop->run();
 
-			loop->walk([](uvw::BaseHandle& h) { 
-				h.close(); 
-			});
-
 			while (loop->alive())
 			{
 				// Do nothing
