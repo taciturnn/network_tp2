@@ -65,7 +65,7 @@ void Server::SendWorld()
 {
 	OutputStream stream = OutputStream();
 	master.Replicate(stream, std::vector<GameObject*>(master.world.begin(), master.world.end()));
-	Send(reinterpret_cast<uint8_t*>(stream.Data().data()), stream.Data().size());
+	Send(reinterpret_cast<uint8_t*>(stream.Data().data()), (unsigned int)stream.Data().size_bytes());
 	// Debug 
 	std::cout << "The world was sent to the clients!" << std::endl;
 }
@@ -74,8 +74,7 @@ void Server::Send(uint8_t* packet, size_t size)
 {
 	for (auto client : clients)
 	{
-		auto dataWrite = std::unique_ptr<char[]>(reinterpret_cast<char*>(packet));
-		client->write(std::move(dataWrite), size);
+		client->write(reinterpret_cast<char*>(packet), size);
 	}
 	// Debug 
 	std::cout << "Data was sent to the clients!" << std::endl;
