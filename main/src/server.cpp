@@ -75,7 +75,7 @@ void Server::Send(uint8_t* packet, size_t size)
 	for (auto client : clients)
 	{
 		auto dataWrite = std::unique_ptr<char[]>(reinterpret_cast<char*>(packet));
-		client->write(std::move(dataWrite), size);
+		client->write(std::move(dataWrite), static_cast<unsigned int>(size));
 	}
 	// Debug 
 	std::cout << "Data was sent to the clients!" << std::endl;
