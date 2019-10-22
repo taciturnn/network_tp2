@@ -47,22 +47,22 @@ void Player::Write(OutputStream& stream)
 	uint8_t offset = 2;
 	if (caseToIgnore != 0)
 	{
-		quatToSend += (static_cast<uint32_t>((((quaternion_a + 0.707) * 1000) / 1407) * 1024) << offset);
+		quatToSend += (static_cast<uint32_t>((((quaternion_a + 0.707) * 1000) * 1024) / 1414)  << offset);
 		offset += 10;
 	}
 	if (caseToIgnore != 1)
 	{
-		quatToSend += (static_cast<uint32_t>((((quaternion_b + 0.707) * 1000) / 1407) * 1024) << offset);
+		quatToSend += (static_cast<uint32_t>((((quaternion_b + 0.707) * 1000) * 1024) / 1414) << offset);
 		offset += 10;
 	}
 	if (caseToIgnore != 2)
 	{
-		quatToSend += (static_cast<uint32_t>((((quaternion_c + 0.707) * 1000) / 1407) * 1024) << offset);
+		quatToSend += (static_cast<uint32_t>((((quaternion_c + 0.707) * 1000) * 1024) / 1414) << offset);
 		offset += 10;
 	}
 	if (caseToIgnore != 3)
 	{
-		quatToSend += (static_cast<uint32_t>((((quaternion_d + 0.707) * 1000) / 1407) * 1024) << offset);
+		quatToSend += (static_cast<uint32_t>((((quaternion_d + 0.707) * 1000) * 1024) / 1414) << offset);
 	}
 
 	stream.Write(quatToSend);
@@ -88,31 +88,31 @@ void Player::Read(InputStream& stream)
 
 	//Receive the new quaternion
 	uint32_t receivedQuat = stream.Read<uint32_t>();
-	uint8_t caseToIgnore = 0x2 & receivedQuat;
+	uint8_t caseToIgnore = 0x3 & receivedQuat;
 
 	uint8_t offset = 2;
 	float sumOfSqr = 0;
 	if (caseToIgnore != 0)
 	{
-		quaternion_a = (static_cast<float>((0x3FF & receivedQuat >> offset) * 1407) / 1000.f) - 0.707f;
+		quaternion_a = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
 		sumOfSqr += quaternion_a * quaternion_a;
 		offset += 10;
 	}
 	if (caseToIgnore != 1)
 	{
-		quaternion_a = (static_cast<float>((0x3FF & receivedQuat >> offset) * 1407) / 1000.f) - 0.707f;
+		quaternion_a = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
 		sumOfSqr += quaternion_b * quaternion_b;
 		offset += 10;
 	}
 	if (caseToIgnore != 2)
 	{
-		quaternion_a = (static_cast<float>((0x3FF & receivedQuat >> offset) * 1407) / 1000.f) - 0.707f;
+		quaternion_a = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
 		sumOfSqr += quaternion_c * quaternion_c;
 		offset += 10;
 	}
 	if (caseToIgnore != 3)
 	{
-		quaternion_a = (static_cast<float>((0x3FF & receivedQuat >> offset) * 1407) / 1000.f) - 0.707f;
+		quaternion_a = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
 		sumOfSqr += quaternion_d * quaternion_d;
 	}
 
