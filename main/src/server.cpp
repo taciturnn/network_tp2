@@ -29,7 +29,8 @@ Server::Server(std::string ip, int port, std::shared_ptr<uvw::Loop> srvLoop)
 
 		client->on<uvw::EndEvent>([](const uvw::EndEvent&, uvw::TCPHandle& client) { 
 			std::cout << "End event for client!" << std::endl;
-			client.close(); });
+			client.close(); 
+		});
 
 		client->on<uvw::ErrorEvent>([](const uvw::ErrorEvent& e, uvw::TCPHandle&) { std::cout << e.name() << ": " << e.what() << std::endl; });
 
@@ -44,7 +45,7 @@ Server::Server(std::string ip, int port, std::shared_ptr<uvw::Loop> srvLoop)
 		// DEBUG
 		std::cout << "A new client is connected!" << std::endl;
 		SendWorld();
-		});
+	});
 
 	tcp->bind(ip, port);
 	tcp->listen();
