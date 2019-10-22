@@ -22,9 +22,21 @@ Server::Server(std::string ip, int port, uvw::Loop& srvLoop)
 	tcp->on<uvw::ListenEvent>([this](const uvw::ListenEvent&, uvw::TCPHandle& srv) {
 		std::shared_ptr<uvw::TCPHandle> client = srv.loop().resource<uvw::TCPHandle>();
 		
-		client->on<uvw::CloseEvent>([ptr = srv.shared_from_this()](const uvw::CloseEvent&, uvw::TCPHandle&) { ptr->close(); std::cout << "Closed connexion" << std::endl; });
-		client->on<uvw::EndEvent>([](const uvw::EndEvent&, uvw::TCPHandle& client) { client.close(); std::cout << "Ended connexion" << std::endl; });
-		
+		client->on<uvw::CloseEvent>([ptr = srv.shared_from_this()](const uvw::CloseEvent&, uvw::TCPHandle&) {
+			std::cout << "Close Event launched!" << std::endl;
+			ptr->close(); 
+		});
+
+		client->on<uvw::EndEvent>([](const uvw::EndEvent&, uvw::TCPHandle& client) { 
+			std::cout << "End event for client!" << std::endl;
+			client.close(); });
+
+		client->on<uvw::ErrorEvent>([](const uvw::ErrorEvent& e, uvw::TCPHandle&) { std::cout << e.name() << ": " << e.what() << std::endl; });
+
+		client->on<uvw::ExitEvent>([](const uvw::ExitEvent&, uvw::TCPHandle& client) {
+			std::cout << "Exit event for client!" << std::endl;
+		});
+
 		srv.accept(*client);
 		
 		clients.push_back(client);
