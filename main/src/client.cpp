@@ -7,13 +7,13 @@
 #include "ennemy.hpp"
 #include "player.hpp"
 
-Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
+Client::Client(std::string ip, int port, std::shared_ptr<uvw::Loop> clientLoop)
 {
 	slave = ReplicationManager();
 	ClassRegistry::GetInstance()->Register(Player());
 	ClassRegistry::GetInstance()->Register(Ennemy());
 
-	auto tcp = clientLoop.resource<uvw::TCPHandle>();
+	auto tcp = clientLoop->resource<uvw::TCPHandle>();
 
 	tcp->on<uvw::ErrorEvent>([](const uvw::ErrorEvent& e, uvw::TCPHandle&) { std::cout << e.name() << ": " << e.what() << std::endl; });
 
@@ -24,7 +24,7 @@ Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
 	tcp->on<uvw::ConnectEvent>([ip, port](const uvw::ConnectEvent&, uvw::TCPHandle& tcp) {
 		// Debug
 		std::cout << "Client is connected to " << ip << ":" << std::to_string(port) << std::endl;
-		tcp.close();
+		tcp.read();
 		});
 
 	tcp->on<uvw::ExitEvent>([](const uvw::ExitEvent&, uvw::TCPHandle& client) {

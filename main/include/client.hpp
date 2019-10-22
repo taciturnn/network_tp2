@@ -8,7 +8,7 @@
 class Client
 {
 public:
-	Client(std::string ip, int port, uvw::Loop& loop);
+	Client(std::string ip, int port, std::shared_ptr<uvw::Loop> loop);
 	~Client() = default;
 
 private:

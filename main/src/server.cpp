@@ -3,7 +3,7 @@
 #include "player.hpp"
 #include "ennemy.hpp"
 
-Server::Server(std::string ip, int port, uvw::Loop& srvLoop)
+Server::Server(std::string ip, int port, std::shared_ptr<uvw::Loop> srvLoop)
 {
 	master = ReplicationManager();
 	ClassRegistry::GetInstance()->Register(Player());
@@ -17,7 +17,7 @@ Server::Server(std::string ip, int port, uvw::Loop& srvLoop)
 	auto en3 = std::make_unique<Ennemy>(); en3->SetType("EnnemyType_3"); master.Add(en3.get()); myEnnemies.push_back(std::move(en3));
 	auto en4 = std::make_unique<Ennemy>(); en4->SetType("EnnemyType_4"); master.Add(en4.get()); myEnnemies.push_back(std::move(en4));
 
-	std::shared_ptr<uvw::TCPHandle> tcp = srvLoop.resource<uvw::TCPHandle>();
+	auto tcp = srvLoop->resource<uvw::TCPHandle>();
 	
 	tcp->on<uvw::ListenEvent>([this](const uvw::ListenEvent&, uvw::TCPHandle& srv) {
 		std::shared_ptr<uvw::TCPHandle> client = srv.loop().resource<uvw::TCPHandle>();

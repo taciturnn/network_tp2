@@ -14,7 +14,7 @@
 class Server
 {
 public:
-	Server(std::string ip, int port, uvw::Loop& loop);
+	Server(std::string ip, int port, std::shared_ptr<uvw::Loop> loop);
 	~Server() = default;
 
 	void SendWorld();

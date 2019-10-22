@@ -18,22 +18,13 @@ int main(int argc, char* argv[])
 
 		if (appType == "server")
 		{
-			Server server = Server(ip, port, *loop);
+			Server server = Server(ip, port, loop);
 			loop->run();
 		}
 		else if (appType == "client")
 		{
-			Client client = Client(ip, port, *loop);
+			Client client = Client(ip, port, loop);
 			loop->run();
-
-			loop->walk([](uvw::BaseHandle& h) { 
-				h.close(); 
-			});
-
-			while (loop->alive())
-			{
-				// Do nothing
-			}
 		}
 		else
 		{
