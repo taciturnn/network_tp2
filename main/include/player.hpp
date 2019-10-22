@@ -3,7 +3,7 @@
 #include "game_object.hpp"
 #include <string>
 
-class Player : GameObject
+class Player : public GameObject
 {
 public:
 	REPLICATED('PLAY', Player)

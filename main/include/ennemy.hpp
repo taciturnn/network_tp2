@@ -2,7 +2,7 @@
 
 #include "game_object.hpp"
 
-class Ennemy : GameObject
+class Ennemy : public GameObject
 {
 public:
 	REPLICATED('ENMY', Ennemy)
