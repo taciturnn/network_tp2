@@ -23,8 +23,12 @@ int main(int argc, char* argv[])
 		}
 		else if (appType == "client")
 		{
-			Client server = Client(ip, port, *loop);
+			Client client = Client(ip, port, *loop);
 			loop->run();
+
+			loop->walk([](uvw::BaseHandle& h) { 
+				h.close(); 
+			});
 
 			while (loop->alive())
 			{

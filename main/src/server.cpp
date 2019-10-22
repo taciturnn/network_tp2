@@ -30,13 +30,24 @@ Server::Server(std::string ip, int port, uvw::Loop& srvLoop)
 	tcp->on<uvw::ListenEvent>([this](const uvw::ListenEvent&, uvw::TCPHandle& srv) {
 		std::shared_ptr<uvw::TCPHandle> client = srv.loop().resource<uvw::TCPHandle>();
 		
-		client->on<uvw::CloseEvent>([ptr = srv.shared_from_this()](const uvw::CloseEvent&, uvw::TCPHandle&) { ptr->close(); });
-		client->on<uvw::EndEvent>([](const uvw::EndEvent&, uvw::TCPHandle& client) { client.close(); });
-		
+		client->on<uvw::CloseEvent>([ptr = srv.shared_from_this()](const uvw::CloseEvent&, uvw::TCPHandle&) {
+			std::cout << "Close Event launched!" << std::endl;
+			ptr->close(); 
+		});
+
+		client->on<uvw::EndEvent>([](const uvw::EndEvent&, uvw::TCPHandle& client) { 
+			std::cout << "End event for client!" << std::endl;
+			client.close(); });
+
+		client->on<uvw::ErrorEvent>([](const uvw::ErrorEvent& e, uvw::TCPHandle&) { std::cout << e.name() << ": " << e.what() << std::endl; });
+
+		client->on<uvw::ExitEvent>([](const uvw::ExitEvent&, uvw::TCPHandle& client) {
+			std::cout << "Exit event for client!" << std::endl;
+		});
+
 		srv.accept(*client);
-		client->read();
 		
-		clients.push_back(client);
+		//clients.push_back(client);
 
 		// DEBUG
 		std::cout << "A new client is connected!" << std::endl;
@@ -58,7 +69,7 @@ void Server::SendWorld()
 {
 	OutputStream stream = OutputStream();
 	master.Replicate(stream, std::vector<GameObject*>(master.world.begin(), master.world.end()));
-	Send(reinterpret_cast<uint8_t*>(stream.Data().data()), (unsigned int)stream.Data().size_bytes());
+	//Send(reinterpret_cast<uint8_t*>(stream.Data().data()), (unsigned int)stream.Data().size_bytes());
 	// Debug 
 	std::cout << "The world was sent to the clients!" << std::endl;
 }

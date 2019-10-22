@@ -17,9 +17,21 @@ Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
 
 	tcp->on<uvw::ErrorEvent>([](const uvw::ErrorEvent& e, uvw::TCPHandle&) { std::cout << e.name() << ": " << e.what() << std::endl; });
 
+	tcp->on<uvw::EndEvent>([](const uvw::EndEvent&, uvw::TCPHandle& client) {
+		std::cout << "End event!" << std::endl;
+		client.close(); });
+
 	tcp->on<uvw::ConnectEvent>([ip, port](const uvw::ConnectEvent&, uvw::TCPHandle& tcp) {
 		// Debug
 		std::cout << "Client is connected to " << ip << ":" << std::to_string(port) << std::endl;
+		});
+
+	tcp->on<uvw::ExitEvent>([](const uvw::ExitEvent&, uvw::TCPHandle& client) {
+		std::cout << "Exit event for client!" << std::endl;
+		});
+
+	tcp->on<uvw::CloseEvent>([](const uvw::CloseEvent&, uvw::TCPHandle& client) {
+		std::cout << "Close event for client!" << std::endl;
 		});
 
 	tcp->on<uvw::DataEvent>([this](const uvw::DataEvent& evt, uvw::TCPHandle&) {
@@ -34,4 +46,5 @@ Client::Client(std::string ip, int port, uvw::Loop& clientLoop)
 
 Client::~Client()
 {
+	std::cout << "client is destroyed..." << std::endl;
 }
