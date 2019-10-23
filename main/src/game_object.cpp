@@ -5,3 +5,5 @@ void GameObject::Destroy() {}
 void GameObject::Write(OutputStream& stream) {}
 
 void GameObject::Read(InputStream& stream) {}
+
+void GameObject::DisplayObject() {}

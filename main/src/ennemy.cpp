@@ -1,5 +1,7 @@
 #include "ennemy.hpp"
 #include "streams.hpp"
+#include <iostream>
+#include <string>
 #include <math.h>
 
 void Ennemy::SetType(std::string name)
@@ -9,6 +11,7 @@ void Ennemy::SetType(std::string name)
 
 void Ennemy::SetPosition(float x, float y, float z)
 {
+	// NO VALIDATION THAT THE POSITION IS VALID (ASSUMED TO BE -500->500)
 	position_x = x;
 	position_y = y;
 	position_z = z;
@@ -16,6 +19,7 @@ void Ennemy::SetPosition(float x, float y, float z)
 
 void Ennemy::SetRotation(float a, float b, float c, float d)
 {
+	// NO VALIDATION THAT THE QUATERNION IS VALID (ASSUMED TO BE -0.707->0.707)
 	quaternion_a = a;
 	quaternion_b = b;
 	quaternion_c = c;
@@ -98,19 +102,19 @@ void Ennemy::Read(InputStream& stream)
 	}
 	if (caseToIgnore != 1)
 	{
-		quaternion_a = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
+		quaternion_b = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
 		sumOfSqr += quaternion_b * quaternion_b;
 		offset += 10;
 	}
 	if (caseToIgnore != 2)
 	{
-		quaternion_a = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
+		quaternion_c = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
 		sumOfSqr += quaternion_c * quaternion_c;
 		offset += 10;
 	}
 	if (caseToIgnore != 3)
 	{
-		quaternion_a = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
+		quaternion_d = (static_cast<float>(((0x3FF & (receivedQuat >> offset)) * 1414) / 1024) / 1000.f) - 0.707f;
 		sumOfSqr += quaternion_d * quaternion_d;
 	}
 
@@ -134,4 +138,20 @@ void Ennemy::Read(InputStream& stream)
 void Ennemy::Destroy()
 {
 	return;
+}
+
+void Ennemy::DisplayObject()
+{
+	std::cout << "    ============================================" << std::endl;
+	std::cout << "    ==                 ENNEMY                 ==" << std::endl;
+	std::cout << "    ============================================" << std::endl;
+	std::cout << "    type : " << type << std::endl;
+	std::cout << "    position x : " << std::to_string(position_x) << std::endl;
+	std::cout << "    position y : " << std::to_string(position_y) << std::endl;
+	std::cout << "    position z : " << std::to_string(position_z) << std::endl;
+	std::cout << "    quaternion a : " << std::to_string(quaternion_a) << std::endl;
+	std::cout << "    quaternion b : " << std::to_string(quaternion_b) << std::endl;
+	std::cout << "    quaternion c : " << std::to_string(quaternion_c) << std::endl;
+	std::cout << "    quaternion d : " << std::to_string(quaternion_d) << std::endl;
+	std::cout << "    ============================================" << std::endl;
 }

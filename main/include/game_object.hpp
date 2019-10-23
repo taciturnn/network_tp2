@@ -20,4 +20,5 @@ public:
 	virtual void Destroy();
 	virtual void Write(OutputStream& stream);
 	virtual void Read(InputStream& stream);
+	virtual void DisplayObject();
 };
