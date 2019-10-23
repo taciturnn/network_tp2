@@ -3,6 +3,8 @@
 #include "utils.hpp"
 #include <iostream>
 
+const uint32_t ReplicationManager::protocolID = 0xc0ffee;
+
 void ReplicationManager::Replicate(OutputStream& stream, std::vector<GameObject*> objects)
 {
 	stream.Write(ReplicationManager::protocolID);

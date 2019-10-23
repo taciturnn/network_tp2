@@ -26,7 +26,7 @@ public:
 	};
 
 private:
-	static const uint32_t protocolID = 0xc0ffee;
+	static const uint32_t protocolID;
 	LinkingContext linkingContext;
 	std::unordered_set<GameObject*> world;
 };
