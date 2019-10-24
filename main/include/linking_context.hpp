@@ -1,5 +1,6 @@
-#include "game_object.hpp"
 #pragma once
+
+#include "game_object.hpp"
 
 #include <map>
 #include <optional>

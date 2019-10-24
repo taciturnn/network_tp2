@@ -13,9 +13,9 @@ Server::Server(std::string ip, int port, std::shared_ptr<uvw::Loop> srvLoop)
 	auto pl2 = std::make_unique<Player>(); pl2->SetName("Player_2"); master.Add(pl2.get()); myPlayers.push_back(std::move(pl2));
 
 	auto en1 = std::make_unique<Ennemy>(); en1->SetType("EnnemyType_1"); en1->SetRotation(0.5,0.5,0.5,0.5); master.Add(en1.get()); myEnnemies.push_back(std::move(en1));
-	auto en2 = std::make_unique<Ennemy>(); en2->SetType("EnnemyType_2"); en2->SetRotation(0.227,0.159,0.679,0.679); master.Add(en2.get()); myEnnemies.push_back(std::move(en2));
-	auto en3 = std::make_unique<Ennemy>(); en3->SetType("EnnemyType_3"); en3->SetRotation(0.499,0.621,0.621,-0.162); master.Add(en3.get()); myEnnemies.push_back(std::move(en3));
-	auto en4 = std::make_unique<Ennemy>(); en4->SetType("EnnemyType_4"); en4->SetRotation(0.208,0.662,-0.699,-0.173); master.Add(en4.get()); myEnnemies.push_back(std::move(en4));
+	auto en2 = std::make_unique<Ennemy>(); en2->SetType("EnnemyType_2"); en2->SetRotation(0.227f,0.159f,0.679f,0.679f); master.Add(en2.get()); myEnnemies.push_back(std::move(en2));
+	auto en3 = std::make_unique<Ennemy>(); en3->SetType("EnnemyType_3"); en3->SetRotation(0.499f,0.621f,0.621f,-0.162f); master.Add(en3.get()); myEnnemies.push_back(std::move(en3));
+	auto en4 = std::make_unique<Ennemy>(); en4->SetType("EnnemyType_4"); en4->SetRotation(0.208f,0.662f,-0.699f,-0.173f); master.Add(en4.get()); myEnnemies.push_back(std::move(en4));
 
 	auto tcp = srvLoop->resource<uvw::TCPHandle>();
 	

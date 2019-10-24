@@ -1,6 +1,8 @@
 #pragma once
 
 #include "game_object.hpp"
+#include "quaternion.hpp"
+#include "vector3.hpp"
 
 class Ennemy : public GameObject
 {
@@ -14,17 +16,10 @@ public:
 
 	void SetType(std::string name);
 	void SetPosition(float x, float y, float z);
-	void SetRotation(float a, float b, float c, float d);
+	void SetRotation(float w, float x, float y, float z);
 
 private:
-	float position_x = 0.f;
-	float position_y = 0.f;
-	float position_z = 0.f;
-
-	float quaternion_a = 1.f;
-	float quaternion_b = 0.f;
-	float quaternion_c = 0.f;
-	float quaternion_d = 0.f;
-
+	Vector3 position;
+	Quaternion rotation;
 	std::string type = "DefaultType";
 };
