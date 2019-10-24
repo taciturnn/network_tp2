@@ -101,7 +101,8 @@ void ReplicationManager::DisplayWorld()
 	std::cout << "==========================================================================" << std::endl;
 	for (auto object : world)
 	{
-		std::cout << object->ClassID() << " : " << linkingContext.GetId(object).value() << std::endl;
+		std::cout << "Object : ClassID->" << object->ClassID() << " & ID->" << linkingContext.GetId(object).value() << std::endl;
+		object->DisplayObject();
 	}
 	std::cout << "==========================================================================" << std::endl;
 }
