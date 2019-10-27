@@ -1,6 +1,7 @@
 #include "quaternion.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 uint32_t Quaternion::Pack() const
 {
