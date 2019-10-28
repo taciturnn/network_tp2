@@ -1,7 +1,7 @@
 #include "vector3.hpp"
 
-float Vector3::range = 500;
-int Vector3::precision = 1000;
+double Vector3::range = 500;
+double Vector3::precision = 1000;
 
 uint64_t Vector3::Pack() const
 {
@@ -19,9 +19,9 @@ Vector3 Vector3::Unpack(uint64_t data)
 	uint64_t t_x = 0xFFFFF & (data >> 40);
 
 	Vector3 result;
-	result.x = (t_x / static_cast<float>(precision)) - range;
-	result.y = (t_y / static_cast<float>(precision)) - range;
-	result.z = (t_z / static_cast<float>(precision)) - range;
+	result.x = static_cast<float>((t_x / precision) - range);
+	result.y = static_cast<float>((t_y / precision) - range);
+	result.z = static_cast<float>((t_z / precision) - range);
 
 	return result;
 }

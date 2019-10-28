@@ -12,6 +12,6 @@ public:
 	uint64_t Pack() const;
 	static Vector3 Unpack(uint64_t data);
 
-	static float range;
-	static int precision;
+	static double range;
+	static double precision;
 };
