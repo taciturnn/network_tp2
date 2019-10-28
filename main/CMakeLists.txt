@@ -30,6 +30,5 @@ set(replication_headers include/game_object.hpp
 add_executable(tp2 ${replication_sources} ${replication_headers})
 target_link_libraries(tp2 PUBLIC uvw_interface GSL)
 
-include(CTest)
 add_executable(TestPackUnpack test/TestPackUnpack.cpp include/quaternion.hpp src/quaternion.cpp include/vector3.hpp src/vector3.cpp)
 add_test(Test_PackUnpack TestPackUnpack)
